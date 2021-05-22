@@ -1,0 +1,11 @@
+- 前台
+
+
+- 後台
+
+
+- 測試
+
+- 執行指令
+ |- In website/api/docker, Dockerfile done, httpd.conf done, run.sh done.
+ |- In cgi folder the website test finished.
