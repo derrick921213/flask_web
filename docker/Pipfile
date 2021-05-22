@@ -10,6 +10,7 @@ autopep8 = "*"
 flask = "*"
 flask-login = "*"
 flask-sqlalchemy = "*"
+mcrcon = "*"
 
 [requires]
 python_version = "3.8"
