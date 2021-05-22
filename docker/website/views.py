@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from . import db
 from .models import *
 from .getip import getip
+from werkzeug.security import generate_password_hash, check_password_hash
 
 views = Blueprint('views', __name__)
 

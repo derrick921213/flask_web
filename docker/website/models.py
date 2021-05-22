@@ -8,3 +8,4 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     level = db.Column(db.String(1))
+    token = db.Column(db.String(150), unique=True)

@@ -3,6 +3,7 @@ from .models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 from .getip import getip
+import secrets
 
 auth = Blueprint('auth', __name__)
 
@@ -11,10 +12,14 @@ auth = Blueprint('auth', __name__)
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
+        global login_email
+        login_email = email
         password = request.form.get('password')
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
+                user.token = secrets.token_urlsafe(10)
+                db.session.commit()
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
                 return redirect(url_for('views.back'))
@@ -28,7 +33,11 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
+    user = User.query.filter_by(email=login_email).first()
+    user.token = ''
+    db.session.commit()
     logout_user()
+
     return redirect(url_for('auth.login'))
 
 

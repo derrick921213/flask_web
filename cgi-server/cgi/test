@@ -1,0 +1,34 @@
+#!/usr/bin/python3
+from mcrcon import MCRcon
+
+import os
+print("Content-type:text/html")
+print()                             # 空行，告诉服务器结束头部
+print('<html>')
+print('<head>')
+print('<meta charset="utf-8">')
+print('<title>Minecraft控制台</title>')
+print('</head>')
+print('<body>')
+mcr = MCRcon("mc-test", "minecraft")
+mcr.connect()
+resp = mcr.command("/whitelist add bob")
+print('<div>'+resp+'</div>')
+
+print('''
+<form method="post">
+        <h3 align="center">Minecraft控制台</h3>
+''')
+print('<span > <textarea readonly = true rows = "50" cols = "1" style="overflow:auto;resize:none;">%s</textarea > </span >' % resp)
+mcr.disconnect()
+print('''
+        <div>
+            <input name="command" id="command" placeholder="Enter command">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+</form>
+''')
+
+
+print('</body>')
+print('</html>')
