@@ -7,9 +7,9 @@ flask=$basedir/flask-server
 mc=$basedir/minecraft-server
 
 # Build custom image.
-docker build -t flask-server "$flask"
-docker build -t cgi-server "$cgi"
-docker build -t mc-server "$mc"
+docker build -t flask-server "$flask" --no-cache
+docker build -t cgi-server "$cgi" --no-cache
+docker build -t mc-server "$mc" --no-cache
 
 # Stop the container created before
 docker stop flask-test cgi-test mc-test

@@ -14,17 +14,17 @@ def refresh_token_get(username):
     return refresh_token
 
 
-@token.route('/refresh_token/<toke>', methods=['GET'])
-@jwt_required(refresh=True)
-def refresh_token(toke):
-    global token_id
-    token_id = toke
-    email = get_jwt_identity()
-    print(email)
-    user = User.query.filter_by(email=email).first()
-    if user:
-        return ("<input type = button value = 後退 onclick =\"window.history.back()\">")
-    return 'Flase'
+# @token.route('/refresh_token/<toke>', methods=['GET'])
+# @jwt_required(refresh=True)
+# def refresh_token(toke):
+#    global token_id
+#    token_id = toke
+#    email = get_jwt_identity()
+#    print(email)
+#    user = User.query.filter_by(email=email).first()
+#   if user:
+#        return ("<input type = button value = 後退 onclick =\"window.history.back()\">")
+#    return 'Flase'
 
 
 @token.route('/get_token/<toke>', methods=['GET'])

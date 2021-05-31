@@ -3,10 +3,8 @@ from .models import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, login_required, logout_user, current_user
 from .getip import getip
-from flask_jwt_extended import jwt_required, get_jwt_identity
 from .token_ar import refresh_token_get
-from .views import home
-from . import setting
+
 auth = Blueprint('auth', __name__)
 
 
@@ -46,28 +44,29 @@ def cheack():
 @auth.route('/changepasswd', methods=['GET', 'POST'])
 @login_required
 def changepasswd():
-    if 'login_email' in globals():
-        user = User.query.filter_by(email=login_email).first()
-        return render_template('changepwd.html', user=current_user, user_email=user.email)
     if request.method == 'POST':
         email = request.form.get('email')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         user = User.query.filter_by(email=email).first()
         if user:
-            if len(password1) < 7:
+            if len(password1) >= 7:
                 if password1 == password2:
                     user.password = generate_password_hash(
                         password1, method='sha256')
                     db.session.commit()
                     flash('Password Changed!', 'SUCCESS')
-                    return redirect(url_for('auth.back'))
+                    return redirect(url_for('auth.login'))
                 else:
                     flash('Passwords don\'t match.', 'error')
             else:
                 flash('Passwords must be at least 7 characters.', 'error')
         else:
             flash('Email didn\'t exists.', category='error')
+            return redirect(url_for('auth.login'))
+    if 'login_email' in globals():
+        user = User.query.filter_by(email=login_email).first()
+        return render_template('changepwd.html', user=current_user, user_email=user.email)
     return redirect(url_for('auth.back'))
 
 
