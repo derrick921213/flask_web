@@ -15,7 +15,7 @@ def restart(command):
 
 
 def install():
-    os.system('sh install.sh')
+    os.system('sh compile.sh')
 
 
 def uninstall():
