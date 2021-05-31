@@ -1,6 +1,7 @@
 FROM httpd
-RUN apt update && apt upgrade -y && apt install net-tools -y && apt install python3 -y && apt install python3-pip -y
-RUN pip3 install mcrcon
+RUN apt update && apt upgrade -y && apt install net-tools iputils-ping -y && apt install python3 -y && apt install python3-pip -y
+RUN pip3 install mcrcon requests2 pyyaml
+RUN cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
 ADD ./cgi /usr/local/apache2/cgi-bin
 RUN chmod 755 -R /usr/local/apache2/cgi-bin

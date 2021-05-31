@@ -1,34 +1,98 @@
 #!/usr/bin/python3
 from mcrcon import MCRcon
-
+import requests
+import cgi
 import os
+
+
+def mc_connect(ip, password):
+    mcr = MCRcon(ip, password)
+    mcr.connect()
+    resp = mcr.command("/whitelist add bob")
+    print('<h3 align="center">Minecraft控制台</h3>')
+    print('<div>'+resp+'</div>')
+    mcr.disconnect()
+
+    '''print(\'''
+        <form method="POST">
+            <div align="center">
+                <div align="center">
+                    <textarea name="comment" id="comment" readonly = true rows = "50" cols = "100" style="resize:none;"></textarea>
+                </div>
+                <input type="text" name="hometown" id="hometown" size="22" />
+            </div>
+        </form>
+        <div align="center">
+            <input type="submit" onClick="doMagic();">
+        </div>
+    \''')'''
+
+
+def log():
+    print('''
+        <div align="left">
+            <table>
+    ''')
+    fo = open("/mcserver/logs/latest.log", "rb")
+    global start_point
+    start_point = 0
+    fo.seek(start_point, 1)
+    for line in fo.readlines():
+        print("<tr>%s</tr><br>" % str(line.decode()))
+    start_point = fo.tell()
+    fo.close()
+    print('''
+        </table>
+        </div> 
+    ''')
+
+
+def get_token():
+    sum = 'sdfkjeiqwijdij38489feiwj3r89udvjis4htih8vys804hdsh8y8ehw3r893987544651454+46565-8487215ekhgeuihouoawuhdhahoiwhd9pwhegqhwdnjsklallq'
+    url = 'http://flask-test:5000/get_token/'+sum
+    r = requests.get(url)
+    if r.status_code == requests.codes.ok:
+        return (r.text)
+    else:
+        return 'Error'
+
+
+#---------html & javascript----------#
+
+def java_script():
+    print('''
+<script>
+function doMagic(){  
+    var homeTown = document.getElementById("hometown").value;  
+    document.getElementById("comment").value = document.getElementById("comment").value + homeTown+"\\n";
+    document.getElementById("hometown").value=""; 
+} 
+</script>
+''')
+
+
+#-----------#
 print("Content-type:text/html")
 print()                             # 空行，告诉服务器结束头部
 print('<html>')
 print('<head>')
 print('<meta charset="utf-8">')
+#print('<meta http-equiv=Refresh Content=10>')
 print('<title>Minecraft控制台</title>')
+java_script()
 print('</head>')
 print('<body>')
-mcr = MCRcon("mc-test", "minecraft")
-mcr.connect()
-resp = mcr.command("/whitelist add bob")
-print('<div>'+resp+'</div>')
 
-print('''
-<form method="post">
-        <h3 align="center">Minecraft控制台</h3>
-''')
-print('<span > <textarea readonly = true rows = "50" cols = "1" style="overflow:auto;resize:none;">%s</textarea > </span >' % resp)
-mcr.disconnect()
-print('''
-        <div>
-            <input name="command" id="command" placeholder="Enter command">
-            <button type="submit" class="btn btn-primary">Send</button>
-        </div>
-</form>
-''')
+# form = cgi.FieldStorage()
+# if form.getvalue('comment'):
+#    command = form.getvalue('comment')
+#    print("<div>%s</div>" % command)
 
+# token = get_token()
+# print("<div>%s</div>" % token)
 
+mc_connect('mc-test', 'minecraft')
+log()
+print("<input type = button value = 後退 onclick =\"window.history.back()\">")
 print('</body>')
 print('</html>')

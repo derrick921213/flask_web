@@ -4,30 +4,12 @@ from . import db
 from .models import *
 from .getip import getip
 from werkzeug.security import generate_password_hash, check_password_hash
+from website import token_ar
 
 views = Blueprint('views', __name__)
 
 
-@views.route('/cgi-bin')
-def cgi():
-    return render_template("back.html", user=current_user, test=getip())
-
-
-@views.route('/', methods=['GET', 'POST'])
+@views.route('/', methods=['GET'])
+@login_required
 def home():
     return render_template("home.html", user=current_user, test=getip())
-
-
-@views.route('/back')
-@login_required
-def back():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-        user = User.query.filter_by(email=email).first()
-        if user:
-            if user.level == 1:
-                return redirect(url_for('views.home'))
-            else:
-                return render_template('back.html', user=current_user)
-    return render_template('back.html', user=current_user, test=getip())

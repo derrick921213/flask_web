@@ -1,6 +1,6 @@
 # Server執行的環境，我們選用JDK 11
 FROM adoptopenjdk/openjdk11
-
+RUN cp /usr/share/zoneinfo/Asia/Taipei /etc/localtime
 # 說明Minecraft Server在Docker裡運行時的目錄
 WORKDIR /mcserver
 

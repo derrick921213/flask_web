@@ -1,3 +1,4 @@
+from enum import unique
 from . import db
 from flask_login import UserMixin
 
@@ -8,4 +9,4 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     level = db.Column(db.String(1))
-    token = db.Column(db.String(150), unique=True)
+    token = db.Column(db.String(1000), unique=True)

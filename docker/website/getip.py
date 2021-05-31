@@ -1,3 +1,3 @@
 def getip():
-    IP = '0.0.0.0:8081'
+    IP = '0.0.0.0'
     return IP

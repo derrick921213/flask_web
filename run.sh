@@ -20,4 +20,4 @@ docker run -d --rm -p 25565:25565 -p 25575:25575 --name mc-test -v $PWD:/mcserve
 cd logs
 rm *.log.gz
 docker run -d --rm -p 8081:80 --name cgi-test --volumes-from mc-test --name=cgi-test --network service --network-alias cgi-test cgi-server
-docker run -d --rm -p 5000:5000 --name flask-test --network service --network-alias flask-test flask-server
+docker run -d --rm -p 80:5000 --name flask-test --network service --network-alias flask-test flask-server
