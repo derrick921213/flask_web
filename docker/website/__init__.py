@@ -77,13 +77,13 @@ def create_database(app):
         db.session.add(new_user)
         db.session.commit()
         print('Created Database!')
-    else:
-        settings = setting()
-        email1 = settings['admin_email']
-        user_name = settings['admin_user']
-        passwd = settings['password']
-        user = User.query.filter_by(email='admin@gmail.com').first()
-        user.email = email1
-        user.password = generate_password_hash(passwd, method='sha256')
-        user.first_name = user_name
-        db.session.commit()
+    # else:
+        #settings = setting()
+        #email1 = settings['admin_email']
+        #user_name = settings['admin_user']
+        #passwd = settings['password']
+        #user = User.query.filter_by(email='admin@gmail.com').first()
+        #user.email = email1
+        #user.password = generate_password_hash(passwd, method='sha256')
+        #user.first_name = user_name
+        # db.session.commit()

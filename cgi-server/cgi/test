@@ -30,17 +30,28 @@ def mc_connect(ip, password):
 
 def log():
     print('''
-        <div align="left">
+        <script type="text/javascript">
+            function add(){
+                var now = new Date();
+                var div = document.getElementById('scrolldIV');
+                div.innerHTML = div.innerHTML + '<br>';
+                div.scrollTop = div.scrollHeight;
+            }
+            var test = document.getElementById("scrolldIV");
+            test.onchange = add;
+        </script>
+        <div align="left" id="scrolldIV" style="overflow:auto; height: 100%; width: 100%; border: 1px solid;">
             <table>
     ''')
-    fo = open("/mcserver/logs/latest.log", "rb")
-    global start_point
-    start_point = 0
-    fo.seek(start_point, 1)
-    for line in fo.readlines():
-        print("<tr>%s</tr><br>" % str(line.decode()))
-    start_point = fo.tell()
-    fo.close()
+    #fo = open("/mcserver/logs/latest.log", "rb")
+    #global start_point
+    #start_point = 0
+    #fo.seek(start_point, 1)
+    #for line in fo.readlines():
+    #    print("<tr>%s</tr><br>" % str(line.decode()))
+    #start_point = fo.tell()
+    #fo.close()
+    
     print('''
         </table>
         </div> 
@@ -57,16 +68,21 @@ def get_token():
         return 'Error'
 
 
-#---------html & javascript----------#
+def login(token):
+    if token != '' or token != None:
+        pass
+        #---------html & javascript----------#
+
 
 def java_script():
     print('''
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 <script>
 function doMagic(){  
     var homeTown = document.getElementById("hometown").value;  
     document.getElementById("comment").value = document.getElementById("comment").value + homeTown+"\\n";
-    document.getElementById("hometown").value=""; 
-} 
+    document.getElementById("hometown").value="";
+}
 </script>
 ''')
 
@@ -77,7 +93,7 @@ print()                             # 空行，告诉服务器结束头部
 print('<html>')
 print('<head>')
 print('<meta charset="utf-8">')
-#print('<meta http-equiv=Refresh Content=10>')
+#print('<meta http-equiv=Refresh Content=3>')
 print('<title>Minecraft控制台</title>')
 java_script()
 print('</head>')
@@ -88,11 +104,10 @@ print('<body>')
 #    command = form.getvalue('comment')
 #    print("<div>%s</div>" % command)
 
-# token = get_token()
-# print("<div>%s</div>" % token)
-
+token = get_token()
+print("<div>%s</div>" % token)
 mc_connect('mc-test', 'minecraft')
 log()
-print("<input type = button value = 後退 onclick =\"window.history.back()\">")
+print("<input type = button value = 登出 onclick =\"location.href='http://0.0.0.0/logout'\">")
 print('</body>')
 print('</html>')

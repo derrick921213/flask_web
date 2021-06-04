@@ -1,4 +1,13 @@
 {% extends "base.html" %}
+{% block head %}
+    <script language="javascript">
+        function reSize(){
+            parent.document.all.frameid.height=document.body.scrollHeight;
+            parent.document.all.frameid.width=document.body.scrollWidth;
+        }
+        window.onload=reSize;
+    </script>
+{% endblock %}
 {% block title %}Back{% endblock %}
 {% block navbar %}
     {% if user.is_authenticated %}
@@ -11,6 +20,7 @@
 {% endblock %}
 {% block content %}
     <h1>This is back page</h1>
+    <iframe frameborder="0" id="frameid" name="frameid" src="http://{{test}}:8081/cgi-bin/test" allow-forms="true" allow-same-origin="true" allow-scripts="true" allow-top-navigation="true">你的瀏覽器不支援 iframe</iframe>
 {% endblock %}
                 
     

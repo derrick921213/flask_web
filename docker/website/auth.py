@@ -46,19 +46,24 @@ def cheack():
 def changepasswd():
     if request.method == 'POST':
         email = request.form.get('email')
+        email1 = request.form.get('email1')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         user = User.query.filter_by(email=email).first()
         if user:
             if len(password1) >= 7:
-                if password1 == password2:
-                    user.password = generate_password_hash(
-                        password1, method='sha256')
-                    db.session.commit()
-                    flash('Password Changed!', 'SUCCESS')
-                    return redirect(url_for('auth.login'))
-                else:
-                    flash('Passwords don\'t match.', 'error')
+                if email1 == email:
+                    flash('Email will not Change!', 'error')
+                if email1 != '' or email1 != None:
+                    user.email = email1
+                    if password1 == password2:
+                        user.password = generate_password_hash(
+                            password1, method='sha256')
+                        db.session.commit()
+                        flash('Email or Password Changed!', 'SUCCESS')
+                        return redirect(url_for('auth.login'))
+                    else:
+                        flash('Passwords don\'t match.', 'error')
             else:
                 flash('Passwords must be at least 7 characters.', 'error')
         else:

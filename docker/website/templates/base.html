@@ -10,7 +10,8 @@
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" 
         crossorigin="anonymous"
     />
-    <title>{% block title %}Home{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}{% endblock %}
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -48,7 +49,7 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-    <div class="container">{% block content %}{% endblock %}</div>
+    {% block content %}{% endblock %}
     <script 
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js" 
         integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A==" 
