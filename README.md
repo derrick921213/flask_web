@@ -15,5 +15,9 @@
    1. Make sure the **Docker daemon** is running.
    2. Clone this repository.
 2. Step two
-   1. `cd first_install`
+   1. change directory to first_install `cd first_install`
    2. execute the Shell script `./install.sh`
+
+## Uninstall
+
+    1. execute the Shell script ``` ./uninstall.sh ```
