@@ -42,19 +42,24 @@ def log():
         </script>
         <div align="left" id="scrolldIV" style="overflow:auto; height: 100%; width: 100%; border: 1px solid;">
             <table>
+                <script language="javascript" type="text/javascript">
+                    var timeout = setInterval(reloadChat, 1000);    
+                    function reloadChat () {
     ''')
-    #fo = open("/mcserver/logs/latest.log", "rb")
-    #global start_point
-    #start_point = 0
-    #fo.seek(start_point, 1)
-    #for line in fo.readlines():
-    #    print("<tr>%s</tr><br>" % str(line.decode()))
-    #start_point = fo.tell()
-    #fo.close()
-    
+    fo = open("/mcserver/logs/latest.log", "rb")
+    global start_point
+    start_point = 0
+    fo.seek(start_point, 1)
+    for line in fo.readlines():
+        print("$('#scrolldIV').html(%s+'<br>')" % str(line.decode()))
+    start_point = fo.tell()
+    fo.close()
+
     print('''
+                }
+            </script>
         </table>
-        </div> 
+    </div> 
     ''')
 
 
@@ -76,7 +81,11 @@ def login(token):
 
 def java_script():
     print('''
-<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+<script
+    src="https://code.jquery.com/jquery-3.6.0.slim.js"
+    integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
+    crossorigin="anonymous">
+</script>
 <script>
 function doMagic(){  
     var homeTown = document.getElementById("hometown").value;  
