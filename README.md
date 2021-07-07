@@ -10,3 +10,10 @@
 - <a href="https://www.docker.com/get-started">Docker</a>
 
 ## Install
+
+1. Step one
+   1. Make sure the **Docker daemon** is running.
+   2. Clone this repository.
+2. Step two
+   1. `cd first_install`
+   2. execute the Shell script `./install.sh`
