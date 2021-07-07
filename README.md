@@ -20,4 +20,4 @@
 
 ## Uninstall
 
-    1. execute the Shell script ``` ./uninstall.sh ```
+    1. execute the Shell script ./uninstall.sh
