@@ -1,4 +1,4 @@
-# _*使用 python 控制服務器 (Rewrite version)*_
+# _*使用 python 控制服務器 (重製版)*_
 
 ### **原始碼在 docker 資料夾下**
 
