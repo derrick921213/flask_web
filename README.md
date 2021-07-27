@@ -1,5 +1,9 @@
 # _*Use the python to control server (Rewrite version)*_
 
+## Translation:zh_tw,us_en
+
+## **<a href="https://github.com/derrick921213/flask_web/blob/main/doc/zh_tw.md">zh_tw</a>**
+
 ### **Source code in docker folder.**
 
 ## Requirement
